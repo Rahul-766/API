@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "c69358ee-97e3-41f0-8ca6-a4bfbbe5a806",
+		"name": "StudentAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24637381",
+		"_collection_link": "https://interstellar-equinox-526972.postman.co/workspace/PostmanCRUD~a29aaabf-96fa-4706-b0fe-b07b2fcc00ee/collection/24637381-c69358ee-97e3-41f0-8ca6-a4bfbbe5a806?action=share&creator=24637381&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get Single Student Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//status code validation \r",
+							"pm.test(\"Status code validation \", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"  \r",
+							"})\r",
+							"//use when responese retuen multiple response code \r",
+							"pm.test(\"Status code validation \", function(){\r",
+							"   \r",
+							"  pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"  \r",
+							"})\r",
+							"pm.test(\"Status code validation \", function(){\r",
+							"   \r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"responsetime validation \", function(){\r",
+							"   \r",
+							"   pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"})\r",
+							"pm.test(\"header validation \", function(){\r",
+							"   \r",
+							"   pm.expect(pm.response.headers.get(\"Content-Type\")).to.be.eql(\"application/json; charset=utf-8\")\r",
+							"})\r",
+							"\r",
+							"const jsonsrespose=pm.response.json();\r",
+							"pm.test(\"response body validation \", function(){\r",
+							"   \r",
+							"   pm.expect(jsonsrespose).to.be.an(\"object\");\r",
+							"   pm.expect(jsonsrespose.id).to.be.a(\"number\");\r",
+							"   pm.expect(jsonsrespose.name).to.be.a(\"string\");\r",
+							"   pm.expect(jsonsrespose.phone).to.be.a(\"string\");\r",
+							"   pm.expect(jsonsrespose.courses).to.be.an(\"array\");\r",
+							"   \r",
+							"})\r",
+							"\r",
+							"pm.test(\"response body validation \", function(){\r",
+							"   \r",
+							"   \r",
+							"   pm.expect(jsonsrespose.id).to.be.eql(1);\r",
+							"   pm.expect(jsonsrespose.name).to.be.eql(\"John\");\r",
+							"   pm.expect(jsonsrespose.phone).to.be.eql(\"1234567890\");\r",
+							"   pm.expect(jsonsrespose.courses[0]).to.be.eql(\"Java\");\r",
+							"   pm.expect(jsonsrespose.courses[1]).to.be.eql(\"Selenium\");\r",
+							"   \r",
+							"})\r",
+							"\r",
+							"pm.test(\"response body array content validation \", function(){\r",
+							"   \r",
+							"  \r",
+							"   pm.expect(jsonsrespose.courses).to.include(\"Java\");\r",
+							"\r",
+							"   pm.expect(jsonsrespose.courses).to.have.members([\"Java\",\"Selenium\"]);\r",
+							"})\r",
+							"//schema validatioons\r",
+							"const schema={\r",
+							"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+							"  \"title\": \"Generated schema for Root\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"location\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"phone\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"courses\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": {\r",
+							"        \"type\": \"string\"\r",
+							"      }\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"name\",\r",
+							"    \"location\",\r",
+							"    \"phone\",\r",
+							"    \"courses\"\r",
+							"  ]\r",
+							"}\r",
+							"pm.test(\"schema validation \", function(){\r",
+							"   \r",
+							"  pm.response.to.have.jsonSchema(schema);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all students data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code validation \", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"  \r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new student Recoed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code validation \", function(){\r",
+							"   \r",
+							"  pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"  \r",
+							"})\r",
+							"pm.test(\"Status code validation \", function(){\r",
+							"   \r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"})\r",
+							"//header validaton \r",
+							"pm.test(\"Header content type validation \", function(){\r",
+							"   \r",
+							"    pm.response.ho.have.header(\"Content-Type\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Header content value validation \", function(){\r",
+							"   \r",
+							"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.be.eql(\"application/json\")\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Scott\",\r\n    \"location\": \"France\",\r\n    \"phone\": \"123456\",\r\n    \"courses\": [\r\n        \"C\",\r\n        \"C++\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code validation \", function(){\r",
+							"   \r",
+							"  pm.expect(pm.response.code).to.be.oneOf([200,201])\r",
+							"  \r",
+							"})\r",
+							"pm.test(\"Status code validation \", function(){\r",
+							"   \r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Scott\",\r\n    \"location\": \"France\",\r\n    \"phone\": \"123456\",\r\n    \"courses\": [\r\n        \"C\",\r\n        \"C++\"\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
